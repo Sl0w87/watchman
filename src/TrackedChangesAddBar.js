@@ -12,12 +12,8 @@ class TrackedChangesAddBar extends React.Component {
 
     handleSubmit(event) {
         this.setState({value: event.target.value});
-
-        var trackedLocations = JSON.parse(localStorage.getItem('trackedLocations'));
-        if (trackedLocations == undefined)
-            trackedLocations = [];
-        trackedLocations.push(this.state.value);
-        localStorage.setItem('trackedLocations', JSON.stringify(trackedLocations));
+        if (this.props.onAddItem != undefined)
+            this.props.onAddItem(this.state.value);        
     }
 
     handleChange(event) {
