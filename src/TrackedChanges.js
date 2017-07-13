@@ -6,14 +6,20 @@ const chokidar = window.require('chokidar');
 class TrackedChanges extends React.Component {
     constructor (props) {
         super(props)
+
         this.state = {
-            trackedLocations: localStorage.getItem('trackedLocations') || [],
+            trackedLocations: JSON.parse(localStorage.getItem('trackedLocations')) || [],
             observedList: [{
                 folder: '',
                 items: []
             }]
         }
         this.addEvent = this.addEvent.bind(this);
+
+        this.state.trackedLocations.forEach((item) => { 
+            // chokidar.watch(item, {ignoreInitial: true})
+            //     .on('add', this.addEvent);
+        });
     }
 
     addItem(ident, path) {
@@ -29,21 +35,22 @@ class TrackedChanges extends React.Component {
         else
             newList.unshift({folder: dir, items: []});
 
-        setState('observedList', newList)
+        this.setState('observedList', newList)
     }
 
     addEvent(path) {
-        addItem('added', path);
+        console.log('added' + path);
+        this.addItem('added', path);
     }
 
     addItem (item) {
+        console.log("add iem" + item);
         const newList = this.state.trackedLocations.concat([item]);
         localStorage.setItem('trackedLocations', JSON.stringify(newList));
 
-        this.setState({ trackedLocations: newList })
-
         chokidar.watch(item, {ignoreInitial: true})
             .on('add', this.addEvent);
+        // this.setState({ trackedLocations: newList });
     }
 
     render() {
