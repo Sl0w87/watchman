@@ -13,7 +13,6 @@ class TrackedChangesList extends React.Component {
         })
     }
     render() {  
-        console.log(this.renderItems);
         const renderItems = this.renderItems.map((item) => {
             return (                    
                 <li>
