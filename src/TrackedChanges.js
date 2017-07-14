@@ -28,9 +28,9 @@ class TrackedChanges extends React.Component {
     addObservedItem(ident, path) {
         const dir = path.substring(0,path.lastIndexOf("\\"));
         const filename = path.replace(/^.*[\\\/]/, '')
-        var folder = this.state.observedList.find((item) => item.folder == dir);
+        var folder = this.state.observedList.find((item) => item.folder === dir);
         var folderIndex = -1;
-        if (folder != undefined)
+        if (folder !== undefined)
             folderIndex = this.state.observedList.indexOf(folder);
 
         var newList = this.state.observedList;

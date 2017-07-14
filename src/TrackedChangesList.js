@@ -1,5 +1,4 @@
 import React from 'react';
-import Collapsible from 'react-collapsible';
 import TrackedChangesLocation from './TrackedChangesLocation';
 
 class TrackedChangesList extends React.Component {
@@ -15,16 +14,15 @@ class TrackedChangesList extends React.Component {
     }
     render() {  
         const renderItems = this.renderItems.map((item) => {
+            console.log(item);
             return (     
-                <TrackedChangesLocation data={item} />                
+                <TrackedChangesLocation data={item} key={item.toString()}/>                
             )
         })
-
         return (
             <div className="container">
-                <br /><br />
                 {renderItems}
-            </div>               
+            </div>       
         );
     }
 }
