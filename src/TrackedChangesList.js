@@ -1,5 +1,6 @@
 import React from 'react';
 import Collapsible from 'react-collapsible';
+import TrackedChangesLocation from './TrackedChangesLocation';
 
 class TrackedChangesList extends React.Component {
     constructor(props){
@@ -14,31 +15,15 @@ class TrackedChangesList extends React.Component {
     }
     render() {  
         const renderItems = this.renderItems.map((item) => {
-            return (                    
-                <li>
-                    <div className="collapsible-header">
-                        <i className="mdi-navigation-chevron-right"/>
-                        <a>{item.folder}</a>
-                        {                            
-                            item.items.map((change) => {
-                                console.log(change);
-                                return(
-                                    <div className="collapsible-body"><p>{change}</p></div>
-                                );
-                            })
-                        }
-                    </div>
-                </li>   
+            return (     
+                <TrackedChangesLocation data={item} />                
             )
         })
 
         return (
             <div className="container">
                 <br /><br />
-                <ul className="collapsible" data-collapsible="expandable">
-                    {renderItems}
-                </ul>
-
+                {renderItems}
             </div>               
         );
     }
