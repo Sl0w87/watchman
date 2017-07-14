@@ -8,55 +8,57 @@ class TrackedChanges extends React.Component {
         super(props)
 
         this.state = {
-            trackedLocations: JSON.parse(localStorage.getItem('trackedLocations')) || [],
-            observedList: [{
-                folder: '',
-                items: []
-            }]
+            'observedList': JSON.parse(localStorage.getItem('observedItems')) || []            
         }
-        this.addEvent = this.addEvent.bind(this);
 
-        this.state.trackedLocations.forEach((item) => { 
-            // chokidar.watch(item, {ignoreInitial: true})
-            //     .on('add', this.addEvent);
-        });
+        this.addEvent = this.addEvent.bind(this);
+        this.addTrackedLocation = this.addTrackedLocation.bind(this);
+        this.addObservedItem = this.addObservedItem.bind(this);   
+
+        this.state.observedList.forEach((item) => {
+            this.activateObservedItem(item.folder);
+        });        
+    }    
+
+    activateObservedItem(path) {
+        chokidar.watch(path, {'ignoreInitial': true})
+            .on('add', this.addEvent);
     }
 
-    addItem(ident, path) {
-        const dir = path.substring(0,path.lastIndexOf("\\")+1);
-        var folder = this.state.observedList.find((item) => item.folder == dir);        
+    addObservedItem(ident, path) {
+        const dir = path.substring(0,path.lastIndexOf("\\"));
+        const filename = path.replace(/^.*[\\\/]/, '')
+        var folder = this.state.observedList.find((item) => item.folder == dir);
         var folderIndex = -1;
         if (folder != undefined)
             folderIndex = this.state.observedList.indexOf(folder);
 
-        const newList = this.state.observedList;
+        var newList = this.state.observedList;
         if (folderIndex >= 0)
-            newList[folderIndex].items.unshift(ident + ' ' + path);
-        else
+            newList[folderIndex].items.unshift(ident + ' ' + filename);
+        else{
             newList.unshift({folder: dir, items: []});
-
-        this.setState('observedList', newList)
+        }
+        
+        this.setState({'observedList': newList}); 
     }
 
     addEvent(path) {
-        console.log('added' + path);
-        this.addItem('added', path);
+        this.addObservedItem('added', path);
     }
-
-    addItem (item) {
-        console.log("add iem" + item);
-        const newList = this.state.trackedLocations.concat([item]);
-        localStorage.setItem('trackedLocations', JSON.stringify(newList));
-
-        chokidar.watch(item, {ignoreInitial: true})
-            .on('add', this.addEvent);
-        // this.setState({ trackedLocations: newList });
+ 
+    addTrackedLocation(item) {
+        const newList = this.state.observedList || [];
+        newList.unshift({'folder': item});
+        localStorage.setItem('observedItems', JSON.stringify(newList));
+        this.setState({'observedList': newList}); 
+        this.activateObservedItem(item);
     }
 
     render() {
         return(
             <div>
-                <TrackedChangesAddBar onAddItem={this.addItem.bind(this)} />
+                <TrackedChangesAddBar onAddItem={this.addTrackedLocation} />
                 <TrackedChangesList data={this.state.observedList} />
             </div>
         );

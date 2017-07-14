@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Input} from 'react-materialize';
+import {Button} from 'react-materialize';
 
 class TrackedChangesAddBar extends React.Component {
     constructor(props) {
@@ -12,7 +12,7 @@ class TrackedChangesAddBar extends React.Component {
 
     handleSubmit(event) {
         this.setState({value: event.target.value});
-        if (this.props.onAddItem != undefined)
+        if (this.props.onAddItem !== undefined)
             this.props.onAddItem(this.state.value);        
     }
 
@@ -21,13 +21,13 @@ class TrackedChangesAddBar extends React.Component {
     }
 
     render() {
-        return (
-            <form onSubmit={this.handleSubmit}>                       
-                <Button type="submit" style={{float: "right", marginLeft: "5px"}}>Add</Button>     
+        return (  
+            <div>    
+                <Button type="submit" onClick={this.handleSubmit} style={{float: "right", marginLeft: "5px"}}>Add</Button>     
                 <div className="file-path-wrapper" style={{overflow: "hidden"}} >
                     <input type="text" placeholder="File or Folder" value={this.state.value} onChange={this.handleChange} />
-                </div>
-            </form>
+                </div>        
+            </div>
         );
     }
 }

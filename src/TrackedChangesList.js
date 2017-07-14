@@ -1,18 +1,46 @@
 import React from 'react';
-import {Collection, CollectionItem} from 'react-materialize';
+import Collapsible from 'react-collapsible';
 
 class TrackedChangesList extends React.Component {
-    render() {  
-        // console.log(this.props.observedItems);
-        const observItem = this.props.observedItems || [];  
-
-        const renderItems = observItem.forEach((item) => {
-            console.log(observItem);
-            <Collection header={observItem.folder}>
-            </Collection>
+    constructor(props){
+        super(props);        
+        this.renderItems = props.data.map((item) => {
+            if (!item.items)
+                item.items = []
+            return (
+                item
+            )
         })
+    }
+    render() {  
+        console.log(this.renderItems);
+        const renderItems = this.renderItems.map((item) => {
+            return (                    
+                <li>
+                    <div className="collapsible-header">
+                        <i className="mdi-navigation-chevron-right"/>
+                        <a>{item.folder}</a>
+                        {                            
+                            item.items.map((change) => {
+                                console.log(change);
+                                return(
+                                    <div className="collapsible-body"><p>{change}</p></div>
+                                );
+                            })
+                        }
+                    </div>
+                </li>   
+            )
+        })
+
         return (
-            <div> {renderItems} </div>                
+            <div className="container">
+                <br /><br />
+                <ul className="collapsible" data-collapsible="expandable">
+                    {renderItems}
+                </ul>
+
+            </div>               
         );
     }
 }
