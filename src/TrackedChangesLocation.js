@@ -18,7 +18,7 @@ class TrackedChangesLocation extends React.Component {
     render() {        
         const item = this.props.data;
         return(
-            <ul className="collapsible" expanded="true">
+            <ul className="collapsible">
                 <li>
                     <div className="collapsible-header" onClick={this.handleClick}>
                         <i className="mdi-navigation-chevron-right"/>

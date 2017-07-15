@@ -1,6 +1,7 @@
 import React from 'react';
 import TrackedChangesAddBar from './TrackedChangesAddBar';
 import TrackedChangesList from './TrackedChangesList';
+import path from 'path';
 const chokidar = window.require('chokidar');
 
 class TrackedChanges extends React.Component {
@@ -20,17 +21,17 @@ class TrackedChanges extends React.Component {
         });        
     }    
 
-    activateObservedItem(path) {
-        chokidar.watch(path, {'ignoreInitial': true})
+    activateObservedItem(location) {
+        chokidar.watch(location, {'ignoreInitial': false})
             .on('add', this.addEvent);
     }
 
-    addObservedItem(ident, path) {
-        const dir = path.substring(0,path.lastIndexOf("\\"));
-        const filename = path.replace(/^.*[\\\/]/, '')
-        var folder = this.state.observedList.find((item) => item.folder === dir);
+    addObservedItem(ident, location) {
+        const dir = location.substring(0, path.lastIndexOf(path.sep));
+        const filename = location.replace(/^.*[\\\/]/, '')
+        var folder = this.state.observedList.find((item) => item.folder == dir);
         var folderIndex = -1;
-        if (folder !== undefined)
+        if (folder != undefined)
             folderIndex = this.state.observedList.indexOf(folder);
 
         var newList = this.state.observedList;
@@ -39,12 +40,11 @@ class TrackedChanges extends React.Component {
         else{
             newList.unshift({folder: dir, items: []});
         }
-        
         this.setState({'observedList': newList}); 
     }
 
-    addEvent(path) {
-        this.addObservedItem('added', path);
+    addEvent(location) {
+        this.addObservedItem('added', location);
     }
  
     addTrackedLocation(item) {

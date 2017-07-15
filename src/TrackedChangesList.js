@@ -14,7 +14,6 @@ class TrackedChangesList extends React.Component {
     }
     render() {  
         const renderItems = this.renderItems.map((item) => {
-            console.log(item);
             return (     
                 <TrackedChangesLocation data={item} key={item.toString()}/>                
             )
