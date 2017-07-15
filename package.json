@@ -12,6 +12,7 @@
     "materialize-css": "^0.99.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
+    "react-icons": "^2.2.5",
     "react-materialize": "^1.0.4"
   },
   "homepage": "./",

@@ -18,6 +18,7 @@ class TrackedChanges extends React.Component {
         this.addDirEvent = this.addDirEvent.bind(this);
         this.unlinkDirEvent = this.unlinkDirEvent.bind(this);
         this.addTrackedLocation = this.addTrackedLocation.bind(this);
+        this.unwatchTrackedLocation = this.unwatchTrackedLocation.bind(this);
         this.addObservedItem = this.addObservedItem.bind(this);   
         this.activateObservedItem = this.activateObservedItem.bind(this);
 
@@ -49,9 +50,10 @@ class TrackedChanges extends React.Component {
 
     unlinkDirEvent(location) {
         this.addObservedItem('unlinked Dir', location);
-    }
+    }   
 
     activateObservedItem(location) {
+        this.addObservedItem('', location);
         chokidar.watch(location, {'ignoreInitial': true, depth: 1})
             .on('add', this.addEvent)
             .on('change', this.changeEvent)
@@ -75,14 +77,19 @@ class TrackedChanges extends React.Component {
 
         var newList = this.state.workList;
         var item = undefined;
+        const identValue = ident? ident + '': '';
         if (folderIndex >= 0){
-            item = newList[folderIndex] ;
-            item.items.unshift(ident + ' ' + filename);
+            item = newList[folderIndex];
+            if (ident) {
+                item.items.unshift(identValue + filename);
+            }
             newList[folderIndex] = item;
         }
         else{
             item = {folder: dir, items: []};
-            item.items.push(ident + ' ' + filename);
+            if (ident) {
+                item.items.push(identValue + filename);
+            }
             newList.unshift(item);
         }
 
@@ -96,11 +103,19 @@ class TrackedChanges extends React.Component {
         this.activateObservedItem(item);
     }
 
+    unwatchTrackedLocation(item) {
+        const index = this.observedItems.indexOf(item);
+        this.observedItems.splice(index, 1);
+        localStorage.setItem('observedItems', JSON.stringify(this.observedItems));
+
+        chokidar.unwatch(item);
+    }
+
     render() {
         return(
             <div>
                 <TrackedChangesAddBar onAddItem={this.addTrackedLocation} />
-                <TrackedChangesList data={this.state.workList} />
+                <TrackedChangesList data={this.state.workList} onUnwatch={this.unwatchTrackedLocation}/>
             </div>
         );
     }
