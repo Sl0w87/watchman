@@ -13,6 +13,10 @@ class TrackedChanges extends React.Component {
         }
 
         this.addEvent = this.addEvent.bind(this);
+        this.changeEvent = this.changeEvent.bind(this);
+        this.unlinkEvent = this.unlinkEvent.bind(this);
+        this.addDirEvent = this.addDirEvent.bind(this);
+        this.unlinkDirEvent = this.unlinkDirEvent.bind(this);
         this.addTrackedLocation = this.addTrackedLocation.bind(this);
         this.addObservedItem = this.addObservedItem.bind(this);   
         this.activateObservedItem = this.activateObservedItem.bind(this);
@@ -26,9 +30,39 @@ class TrackedChanges extends React.Component {
         });        
     }
 
+
+    addEvent(location, stats) {
+        this.addObservedItem('added', location);
+    }
+
+    changeEvent(location, stats){
+        this.addObservedItem('changed', location);
+    }
+
+    unlinkEvent(location) {
+        this.addObservedItem('unlinked', location);
+    }
+
+    addDirEvent(location) {
+        this.addObservedItem('added Dir', location);
+    }
+
+    unlinkDirEvent(location) {
+        this.addObservedItem('unlinked Dir', location);
+    }
+
     activateObservedItem(location) {
         chokidar.watch(location, {'ignoreInitial': true, depth: 1})
-            .on('add', this.addEvent);
+            .on('add', this.addEvent)
+            .on('change', this.changeEvent)
+            .on('unlink', this.unlinkEvent)
+            .on('addDir', this.addDirEvent)
+            .on('unlinkDir', this.unlinkDirEvent)
+//   .on('error', error => log(`Watcher error: ${error}`))
+//   .on('ready', () => log('Initial scan complete. Ready for changes'))
+//   .on('raw', (event, path, details) => {
+//     log('Raw event info:', event, path, details);
+//   });
     }
 
     addObservedItem(ident, location) {
@@ -53,10 +87,6 @@ class TrackedChanges extends React.Component {
         }
 
         this.setState({'workList': newList});
-    }
-
-    addEvent(location) {
-        this.addObservedItem('added', location);
     }
  
     addTrackedLocation(item) {
