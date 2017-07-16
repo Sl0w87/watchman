@@ -1,6 +1,6 @@
 import React from 'react';
 import TrackedChangesLocationItem from './TrackedChangesLocationItem';
-import {MdCancel, MdChevronRight, MdKeyboardArrowDown, MdPauseCircleOutline} from 'react-icons/lib/md';
+import {MdCancel, MdChevronRight, MdKeyboardArrowDown, MdKeyboardArrowUp, MdPauseCircleOutline, MdPlayCircleOutline} from 'react-icons/lib/md';
 const chokidar = window.require('chokidar');
 
 class TrackedChangesLocation extends React.Component {
@@ -10,11 +10,13 @@ class TrackedChangesLocation extends React.Component {
             expanded: false,
             folder: this.props.folder,
             initialized: false,
+            active: false,
             items: []
         }
 
-        this.handleClick = this.handleClick.bind(this);
+        this.handleExpand = this.handleExpand.bind(this);
         this.handleUnwatch = this.handleUnwatch.bind(this);
+        this.handleWatch = this.handleWatch.bind(this);
 
         this.addEvent = this.addEvent.bind(this);
         this.changeEvent = this.changeEvent.bind(this);
@@ -31,6 +33,7 @@ class TrackedChangesLocation extends React.Component {
 
     activateObservedItem(location) {
         this.addObservedItem('', location);
+        this.setState({"active": true});
         this.watcher = chokidar.watch(location, {'ignoreInitial': true, depth: 1})
             .on('add', this.addEvent)
             .on('change', this.changeEvent)
@@ -50,6 +53,10 @@ class TrackedChangesLocation extends React.Component {
         if (ident) {
             newList.unshift(ident + " " + filename);
         }   
+        var notif = new window.Notification(ident, {
+            body: location,
+            silent: true // We'll play our own sound
+        });
 
         this.setState({"initialized": true, items: newList});
     }
@@ -74,26 +81,38 @@ class TrackedChangesLocation extends React.Component {
         this.addObservedItem('unlinked Dir', location);
     }   
 
-    handleClick(event) {
+    handleExpand(event) {
         this.setState({'expanded': !this.state.expanded});
     }
 
     handleUnwatch(event) {
         this.watcher.unwatch(this.state.folder);
+        this.setState({active: false});
     }
 
-    render() {        
+    handleWatch(event) {
+        this.watcher = chokidar.watch(this.state.folder);
+        this.setState({active: true});
+    }
+
+    render() {                
         return(
-            <ul className="collapsible">
-                <li>
-                    <div className="collapsible-header" onClick={this.handleClick}>
-                        <MdKeyboardArrowDown style={{float: "left", lineHeight:"3 em"}} />
-                        <a style={{float:"center"}}>{this.state.folder}</a>
-                        <MdPauseCircleOutline style={{float:"right"}} onClick={this.handleUnwatch}/>
+            <div>
+                <ul className="collapsible">
+                    <li>
+                        <div className="collapsible-header" onClick={this.handleExpand}>
+                            <MdKeyboardArrowDown size="35" style={{float: "left", display: this.state.expanded? "none": ""}}/>
+                            <MdKeyboardArrowUp size="35" style={{float: "left", display: this.state.expanded? "": "none"}}/>
+                            <MdPauseCircleOutline size="35" style={{float: "right", display: this.state.active? "": "none"}} onClick={this.handleUnwatch}/>
+                            <MdPlayCircleOutline size="35" style={{float: "right", display: this.state.active? "none": ""}} onClick={this.handleWatch}/>   
+
+                            <a style={{float:"center"}}>{this.state.folder}</a>
+                        </div>
                         <TrackedChangesLocationItem data={this.state.items} expanded={this.state.expanded}/> 
-                    </div>
-                </li>  
-            </ul>     
+                    </li>  
+                </ul>     
+            </div>
+            
         );
     }
 }

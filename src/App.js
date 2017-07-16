@@ -8,7 +8,9 @@ class App extends Component {
       <div className="App">
         <nav>
           <div className="nav-wrapper">
-            <a className="brand-logo">Logo</a>          
+            <a className="brand-logo">
+              
+            </a>
           </div>
         </nav>
         <div className="App-main">

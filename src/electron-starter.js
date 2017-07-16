@@ -17,7 +17,7 @@ function createWindow() {
         {
             width: 1280, 
             height: 800,
-            icon: path.join(__dirname, '/assets/watchman.png')
+            icon: './logo.png'
         }
     );
 
