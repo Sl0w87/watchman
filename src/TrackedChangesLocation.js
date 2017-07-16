@@ -1,6 +1,6 @@
 import React from 'react';
 import TrackedChangesLocationItem from './TrackedChangesLocationItem';
-import {MdCancel} from 'react-icons/lib/md';
+import {MdCancel, MdChevronRight, MdKeyboardArrowDown, MdPauseCircleOutline} from 'react-icons/lib/md';
 const chokidar = window.require('chokidar');
 
 class TrackedChangesLocation extends React.Component {
@@ -46,9 +46,10 @@ class TrackedChangesLocation extends React.Component {
 
     addObservedItem(ident, location) {
         const filename = location.replace(/^.*[\\\/]/, '')
-        
         var newList = this.state.items;
-        newList.unshift(ident + " " + filename);
+        if (ident) {
+            newList.unshift(ident + " " + filename);
+        }   
 
         this.setState({"initialized": true, items: newList});
     }
@@ -86,9 +87,9 @@ class TrackedChangesLocation extends React.Component {
             <ul className="collapsible">
                 <li>
                     <div className="collapsible-header" onClick={this.handleClick}>
-                        <i className="mdi-navigation-chevron-right"/>
-                        <a>{this.state.folder}</a>
-                        <MdCancel onClick={this.handleUnwatch}/>
+                        <MdKeyboardArrowDown style={{float: "left", lineHeight:"3 em"}} />
+                        <a style={{float:"center"}}>{this.state.folder}</a>
+                        <MdPauseCircleOutline style={{float:"right"}} onClick={this.handleUnwatch}/>
                         <TrackedChangesLocationItem data={this.state.items} expanded={this.state.expanded}/> 
                     </div>
                 </li>  
