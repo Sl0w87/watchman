@@ -9,6 +9,10 @@
   flex: 1 0 auto;
 }
 
+#nav-mobile {
+  display: "none"
+}
+
 
 
 @keyframes App-logo-spin {

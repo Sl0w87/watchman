@@ -15,6 +15,12 @@
     "react-icons": "^2.2.5",
     "react-materialize": "^1.0.4"
   },
+  "build": {
+    "productName": "watchman",
+    "win": {
+      "icon": "./public/favicon.ico"
+    }
+  },
   "homepage": "./",
   "main": "src/electron-starter.js",
   "scripts": {

@@ -2,6 +2,7 @@ import React from 'react';
 import TrackedChangesLocationItem from './TrackedChangesLocationItem';
 import {MdCancel, MdChevronRight, MdKeyboardArrowDown, MdKeyboardArrowUp, MdPauseCircleOutline, MdPlayCircleOutline} from 'react-icons/lib/md';
 const chokidar = window.require('chokidar');
+const shell = window.require('electron');
 
 class TrackedChangesLocation extends React.Component {
     constructor(props) {
@@ -52,11 +53,13 @@ class TrackedChangesLocation extends React.Component {
         var newList = this.state.items;
         if (ident) {
             newList.unshift(ident + " " + filename);
-        }   
-        var notif = new window.Notification(ident, {
-            body: location,
-            silent: true // We'll play our own sound
-        });
+
+            var notif = new window.Notification("Info", {
+                body: ident + " " + filename,
+                silent: true, // We'll play our own sound
+                onClick: () => { shell.openItem(location) }
+            });
+        }
 
         this.setState({"initialized": true, items: newList});
     }

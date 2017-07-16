@@ -1,28 +1,24 @@
 import React, { Component } from 'react';
 import './App.css';
 import TrackedChanges from './TrackedChanges';
+import {Navbar, Footer} from 'react-materialize';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <nav>
+        <Navbar brand="watchman" right>
           <div className="nav-wrapper">
             <a className="brand-logo">
               
             </a>
           </div>
-        </nav>
+        </Navbar>
         <div className="App-main">
           <TrackedChanges />        
         </div>
-        <footer className="page-footer" style={{flex: "1 0 auto"}}>
-          <div className="footer-copyright">
-            <div className="container">
-              © 2017 Copyright Text
-            </div>
-          </div>
-        </footer>
+        <Footer copyrights="&copy; 2017 Lars Georgi">
+        </Footer>
       </div>
     );
   }
