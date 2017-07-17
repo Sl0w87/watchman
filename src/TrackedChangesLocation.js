@@ -54,18 +54,18 @@ class TrackedChangesLocation extends React.Component {
         var newList = this.state.items;
         if (ident) {
             newList.unshift(ident + " " + filename);
-
             ipcRenderer.send('trackedChange', {
-                title: 'watchman',
+                title: 'watchman', 
                 message: ident + ' ' + filename,
                 icon: path.join(__dirname, 'logo.png'),
-                sound: 'false'
+                sound: false,
+                wait: false
             });
             // var notif = new window.Notification("Info", {
             //     body: ident + " " + filename,
             //     silent: true, // We'll play our own sound
             //     onClick: () => { shell.openItem(location) }
-            // });
+            // }); 
         }
 
         this.setState({"initialized": true, items: newList});
