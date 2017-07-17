@@ -1,11 +1,14 @@
 {
   "name": "watchman",
   "version": "0.1.0",
+  "author": "Lars Georgi",
+  "description": "An app to watch files and folders",
   "private": true,
   "devDependencies": {
     "electron": "1.6.11",
     "foreman": "2.0.0",
-    "react-scripts": "1.0.10"
+    "react-scripts": "1.0.10",
+    "electron-builder": "^19.16.0"
   },
   "dependencies": {
     "chokidar": "^1.7.0",
@@ -14,31 +17,47 @@
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-icons": "^2.2.5",
-    "react-materialize": "^1.0.4",
-    "webpack-notifier": "^1.5.0"
+    "react-materialize": "^1.0.4"
   },
   "homepage": "./",
-  "main": "src/electron-starter.js",
+  "main": "./src/electron-starter.js",
   "scripts": {
+    "postinstall": "electron-builder install-app-deps",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "electron": "electron .",
-    "dev": "nf start -p 3000"
+    "dev": "nf start -p 3000",
+    "dist": "electron-builder"
   },
   "build": {
+    "asar": true,
     "appId": "com.electron.watchman",
-    "asarUnpack": "./node_modules/node-notifier/vendor/**",
-    "nsis": {
-      "deleteAppDataOnUninstall": true
+    "productName": "watchman",
+    "dmg": {
+      "contents": [
+        {
+          "x": 110,
+          "y": 150
+        },
+        {
+          "x": 240,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
     },
-    "directories": {
-      "buildResources" : "buildResources"
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ]
     },
     "win": {
       "target": "NSIS",
-      "icon": "./favicon.ico"
+      "icon": "build/logo.ico"
     }
   }
 }
