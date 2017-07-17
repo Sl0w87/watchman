@@ -1,8 +1,9 @@
 import React from 'react';
 import TrackedChangesLocationItem from './TrackedChangesLocationItem';
-import {MdCancel, MdChevronRight, MdKeyboardArrowDown, MdKeyboardArrowUp, MdPauseCircleOutline, MdPlayCircleOutline} from 'react-icons/lib/md';
+import {MdKeyboardArrowDown, MdKeyboardArrowUp, MdPauseCircleOutline, MdPlayCircleOutline} from 'react-icons/lib/md';
+import path from 'path';
 const chokidar = window.require('chokidar');
-const shell = window.require('electron');
+const {shell, ipcRenderer} = window.require('electron');
 
 class TrackedChangesLocation extends React.Component {
     constructor(props) {
@@ -54,11 +55,17 @@ class TrackedChangesLocation extends React.Component {
         if (ident) {
             newList.unshift(ident + " " + filename);
 
-            var notif = new window.Notification("Info", {
-                body: ident + " " + filename,
-                silent: true, // We'll play our own sound
-                onClick: () => { shell.openItem(location) }
+            ipcRenderer.send('trackedChange', {
+                title: 'watchman',
+                message: ident + ' ' + filename,
+                icon: path.join(__dirname, 'logo.png'),
+                sound: 'false'
             });
+            // var notif = new window.Notification("Info", {
+            //     body: ident + " " + filename,
+            //     silent: true, // We'll play our own sound
+            //     onClick: () => { shell.openItem(location) }
+            // });
         }
 
         this.setState({"initialized": true, items: newList});

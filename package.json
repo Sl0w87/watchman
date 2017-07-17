@@ -10,16 +10,12 @@
   "dependencies": {
     "chokidar": "^1.7.0",
     "materialize-css": "^0.99.0",
+    "node-notifier": "^5.1.2",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-icons": "^2.2.5",
-    "react-materialize": "^1.0.4"
-  },
-  "build": {
-    "productName": "watchman",
-    "win": {
-      "icon": "./public/favicon.ico"
-    }
+    "react-materialize": "^1.0.4",
+    "webpack-notifier": "^1.5.0"
   },
   "homepage": "./",
   "main": "src/electron-starter.js",
@@ -30,5 +26,19 @@
     "eject": "react-scripts eject",
     "electron": "electron .",
     "dev": "nf start -p 3000"
+  },
+  "build": {
+    "appId": "com.electron.watchman",
+    "asarUnpack": "./node_modules/node-notifier/vendor/**",
+    "nsis": {
+      "deleteAppDataOnUninstall": true
+    },
+    "directories": {
+      "buildResources" : "buildResources"
+    },
+    "win": {
+      "target": "NSIS",
+      "icon": "./favicon.ico"
+    }
   }
 }

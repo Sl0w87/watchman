@@ -10,16 +10,14 @@ class TrackedChanges extends React.Component {
         this.state = {
             "workList": JSON.parse(localStorage.getItem("observedItems"))
         }
-
         
         this.addTrackedLocation = this.addTrackedLocation.bind(this);
     }    
  
     addTrackedLocation(location) {
-        var newList = this.state.workList;
-
+        var newList = this.state.workList || [];
         const dir = location.substring(0, location.lastIndexOf(path.sep));
-        var folder = newList.find((item) => item.folder == dir);
+        var folder = newList.find((item) => item == dir);
         if (folder === undefined)
         {
             newList.unshift(location);
