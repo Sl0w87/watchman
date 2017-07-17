@@ -72,7 +72,7 @@ class TrackedChangesLocation extends React.Component {
     }
 
     addEvent(location, stats) {
-        this.addObservedItem('added', location);
+        this.addObservedItem('new', location);
     }
 
     changeEvent(location, stats){
@@ -80,15 +80,15 @@ class TrackedChangesLocation extends React.Component {
     }
 
     unlinkEvent(location) {
-        this.addObservedItem('unlinked', location);
+        this.addObservedItem('deleted', location);
     }
 
     addDirEvent(location) {
-        this.addObservedItem('added Dir', location);
+        this.addObservedItem('new Dir', location);
     }
 
     unlinkDirEvent(location) {
-        this.addObservedItem('unlinked Dir', location);
+        this.addObservedItem('deleted Dir', location);
     }   
 
     handleExpand(event) {
@@ -96,13 +96,14 @@ class TrackedChangesLocation extends React.Component {
     }
 
     handleUnwatch(event) {
-        this.watcher.unwatch(this.state.folder);
+        this.watcher.close();
+        console.log(this.watcher);
         this.setState({active: false});
     }
 
     handleWatch(event) {
-        this.watcher = chokidar.watch(this.state.folder);
-        this.setState({active: true});
+        this.activateObservedItem(this.state.folder);
+        console.log(this.watcher);
     }
 
     render() {                
