@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import TrackedChanges from './TrackedChanges';
+import TrackingContainer from './tracking/TrackingContainer';
 import {Navbar, Footer} from 'react-materialize';
 
 class App extends Component {
@@ -15,7 +15,7 @@ class App extends Component {
           </div>
         </Navbar>
         <div className="App-main">
-          <TrackedChanges />        
+          <TrackingContainer />        
         </div>
         <Footer copyrights="&copy; 2017 Lars Georgi">
         </Footer>
