@@ -25,12 +25,32 @@
   margin-left: 5px;
 }
 
+@keyframes RotateRight {
+  to {transform: rotate(360deg);}
+}
+
+.RotateRight {
+  float: right;
+  animation: RotateRight .6s linear infinite;
+  vertical-align: center;
+}
+
+.RotateRightText{
+  float: right;
+  color: black;
+  vertical-align: center;
+}
+
 .Folder {
   margin: 5px;
 }
 
 .FolderHeader {
   text-align: left;
+}
+
+.FolderHeaderValue {  
+  color: black;
 }
 
 .FolderHeader .ExpandLessButton, .ExpandMoreButton {
