@@ -45,18 +45,6 @@
   margin: 5px;
 }
 
-.FolderHeader {
-  text-align: left;
-}
-
-.FolderHeaderValue {  
-  color: black;
-}
-
-.FolderHeader .ExpandLessButton, .ExpandMoreButton {
+.Folder .ExpandLessButton, .ExpandMoreButton, .PlayButton, .PauseButton {
   float: right;
-}
-
-.FolderItem {
-  margin: 5px;
 }

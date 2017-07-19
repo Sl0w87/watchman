@@ -1,21 +1,27 @@
 import React from 'react';
-import FolderHeader from './FolderHeader';
-import FolderItem from './FolderItem';
+import {Collection, CollectionItem} from 'react-materialize';
+import {MdExpandLess, MdExpandMore, MdPause, MdPlayArrow, MdRotateRight} from 'react-icons/lib/md';
 
 export default function Folder (props) {
     const {items, expanded} = props
     const folderItems = items.map((item) => {
         return (
-            <FolderItem value={item} active={expanded}/>
+            <CollectionItem style={{display: props.active? 'block': 'none'}}>
+                {item}
+            </CollectionItem>
         )
     })
 
     return (
         <div className="Folder">
-            <a>Watched Folders</a>
-            <hr />        
-            <FolderHeader value={props.name} expandClick={props.expandClick} activeClick={props.activeClick} initialized={props.initialized} active={props.active} expanded={props.expanded} />            
-            {folderItems}
+            <MdExpandLess className="ExpandLessButton" onClick={props.expandClick} style={{display: props.expanded && props.initialized? 'inline-block': 'none'}} />
+            <MdExpandMore className="ExpandMoreButton" onClick={props.expandClick} style={{display: !props.expanded && props.initialized? 'inline-block': 'none'}} />
+            <MdRotateRight className= "RotateRight" style={{display: props.initialized || !props.active? 'none': 'inline-block'}} />
+            <MdPause className="PauseButton" onClick={props.activeClick} style={{display: props.active? 'block': 'none'}} />
+            <MdPlayArrow className="PlayButton" onClick={props.activeClick} style={{display: !props.active? 'block': 'none'}} />
+            <Collection header={props.name} onClick={props.expandClick}>
+                {folderItems}
+            </Collection>    
         </div>
     )
 }
