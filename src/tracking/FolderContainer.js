@@ -17,12 +17,14 @@ export default class FolderContainer extends React.Component {
     }
 
     handleExpandClick (event) {
+        console.log(`handleActiveClick ${this.state.expanded}`)
         this.setState({
             "expanded": !this.state.expanded
         })
     }
 
     handleActiveClick (event) {
+        console.log(`handleActiveClick ${this.state.active}`)
         this.setState({
             "active": !this.state.active
         })
@@ -30,7 +32,7 @@ export default class FolderContainer extends React.Component {
 
     render () {
         return (
-            <Folder name={this.state.name} active={this.state.active} expanded={this.state.expanded} items={this.state.items} expandClick={this.state.handleExpandClick} activeClick={this.handleActiveClick} />                        
+            <Folder name={this.state.name} active={this.state.active} expanded={this.state.expanded} items={this.state.items} expandClick={this.handleExpandClick} activeClick={this.handleActiveClick} />                        
         )
     }
 }

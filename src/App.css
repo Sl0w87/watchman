@@ -1,5 +1,4 @@
 .App {
-  text-align: center;
   display: flex;
   min-height: 100vh;
   flex-direction: column;
@@ -13,9 +12,31 @@
   display: "none"
 }
 
+.AddBar {
+  margin: 5px;
+}
 
+.AddBar > div {
+  overflow: hidden;
+}
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.AddBar > button {
+  float: right;
+  margin-left: 5px;
+}
+
+.Folder {
+  margin: 5px;
+}
+
+.FolderHeader {
+  text-align: left;
+}
+
+.FolderHeader .ExpandLessButton, .ExpandMoreButton {
+  float: right;
+}
+
+.FolderItem {
+  margin: 5px;
 }

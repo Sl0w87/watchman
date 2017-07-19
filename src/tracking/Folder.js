@@ -9,9 +9,11 @@ export default function Folder (props) {
         )
     })
     return (
-        <div className="folderList">
-            <FolderHeader value={props.name} onExpandClick={props.expandClick} onActiveClick={props.activeClick} active={props.active} expanded={props.expanded} />
+        <div className="Folder">
+            <a>Watched Folders</a>
+            <hr />        
+            <FolderHeader value={props.name} expandClick={props.expandClick} activeClick={props.activeClick} active={props.active} expanded={props.expanded} />            
             {folderItems}
-        </div> 
+        </div>
     )
 }

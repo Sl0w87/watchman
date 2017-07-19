@@ -3,12 +3,12 @@ import {MdExpandLess, MdExpandMore, MdPause, MdPlayArrow} from 'react-icons/lib/
 
 export default function FolderHeader (props) {
     return (
-        <div className="folderHeader">
-            <MdExpandLess onClick={props.onExpandClick} stlye={{display: props.expanded? 'block': 'none'}} />
-            <MdExpandMore onClick={props.onExpandClick} stlye={{display: !props.expanded? 'block': 'none'}} />            
-            <a className="folderHeaderValue">{props.value}</a>
-            <MdPause onClick={props.onActiveClick} stlye={{display: props.active? 'block': 'none'}} />    
-            <MdPlayArrow onClick={props.onActiveClick} stlye={{display: !props.active? 'block': 'none'}} />    
+        <div className="FolderHeader">          
+            <a className="FolderHeaderValue">{props.value}</a>
+            <MdExpandLess className="ExpandLessButton" onClick={props.expandClick} style={{display: props.expanded? 'inline-block': 'none'}} />
+            <MdExpandMore className="ExpandMoreButton" onClick={props.expandClick} style={{display: !props.expanded? 'inline-block': 'none'}} />
+            <MdPause className="PauseButton" onClick={props.activeClick} style={{display: props.active? 'block': 'none'}} />
+            <MdPlayArrow className="PlayButton" onClick={props.activeClick} style={{display: !props.active? 'block': 'none'}} />
         </div>
     )
 }
