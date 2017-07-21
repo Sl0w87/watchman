@@ -2,6 +2,7 @@
   display: flex;
   min-height: 100vh;
   flex-direction: column;
+  color: grey;
 }
 
 .App-main {
@@ -45,6 +46,22 @@
   margin: 5px;
 }
 
-.Folder .ExpandLessButton, .ExpandMoreButton, .PlayButton, .PauseButton {
-  float: right;
+.Folder > h2 {
+  font-size: 1rem;
+}
+
+.ExpandButton {
+
+}
+
+.StateButton {
+}
+
+.StateButton active {
+  display: inline-block;
+  color: blue;
+}
+
+.active {
+  color: blue;
 }

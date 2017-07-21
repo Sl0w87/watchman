@@ -1,27 +1,37 @@
 import React from 'react';
-import {Collection, CollectionItem} from 'react-materialize';
 import {MdExpandLess, MdExpandMore, MdPause, MdPlayArrow, MdRotateRight} from 'react-icons/lib/md';
+import classNames from 'classnames';
 
 export default function Folder (props) {
     const {items, expanded} = props
     const folderItems = items.map((item) => {
         return (
-            <CollectionItem style={{display: props.active? 'block': 'none'}}>
+            <p className={classNames("FolderItem", {"active": props.expanded})}>
                 {item}
-            </CollectionItem>
+            </p>
         )
     })
 
+    const renderExpandButton = (expanded) => {
+        if (expanded)
+            return (<MdExpandLess className={classNames("ExpandButton", {"active": props.expanded})} onClick={props.expandClick} />)
+        else
+            return (<MdExpandMore className={classNames("ExpandButton", {"active": props.expanded})} onClick={props.expandClick} /> )       
+    }
+
+    const renderStateButton = (active) => {
+        if (active)
+            return (<MdPause className={classNames("StateButton", {"active": props.active})} onClick={props.activeClick} />)
+        else
+            return (<MdPlayArrow className={classNames("StateButton", {"active": props.active})} onClick={props.activeClick} />)
+    }
+
     return (
         <div className="Folder">
-            <MdExpandLess className="ExpandLessButton" onClick={props.expandClick} style={{display: props.expanded && props.initialized? 'inline-block': 'none'}} />
-            <MdExpandMore className="ExpandMoreButton" onClick={props.expandClick} style={{display: !props.expanded && props.initialized? 'inline-block': 'none'}} />
-            <MdRotateRight className= "RotateRight" style={{display: props.initialized || !props.active? 'none': 'inline-block'}} />
-            <MdPause className="PauseButton" onClick={props.activeClick} style={{display: props.active? 'block': 'none'}} />
-            <MdPlayArrow className="PlayButton" onClick={props.activeClick} style={{display: !props.active? 'block': 'none'}} />
-            <Collection header={props.name} onClick={props.expandClick}>
-                {folderItems}
-            </Collection>    
+            {renderExpandButton(props.expanded)}
+            {renderStateButton(props.active)}       
+            <h2>{props.name}</h2>            
+            {folderItems}
         </div>
     )
 }
