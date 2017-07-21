@@ -30,16 +30,10 @@
   to {transform: rotate(360deg);}
 }
 
-.RotateRight {
-  float: right;
+.StateSpinner {
   animation: RotateRight .6s linear infinite;
   vertical-align: center;
-}
-
-.RotateRightText{
-  float: right;
-  color: black;
-  vertical-align: center;
+  display: inline-block;
 }
 
 .Folder {
@@ -50,18 +44,19 @@
   font-size: 1rem;
 }
 
-.ExpandButton {
-
+.FolderHeader {
+  display: inline-block;
+  margin-left: 15px;
 }
 
 .StateButton {
+  display: inline-block;
 }
 
-.StateButton active {
+.ExpandButton {
   display: inline-block;
-  color: blue;
-}
+} 
 
 .active {
-  color: blue;
+  color: black;
 }

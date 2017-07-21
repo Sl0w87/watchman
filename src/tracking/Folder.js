@@ -19,18 +19,20 @@ export default function Folder (props) {
             return (<MdExpandMore className={classNames("ExpandButton", {"active": props.expanded})} onClick={props.expandClick} /> )       
     }
 
-    const renderStateButton = (active) => {
-        if (active)
+    const renderStateButton = (active, initialized) => {
+        if (active && initialized)
             return (<MdPause className={classNames("StateButton", {"active": props.active})} onClick={props.activeClick} />)
-        else
+        else if (!active && !initialized)
             return (<MdPlayArrow className={classNames("StateButton", {"active": props.active})} onClick={props.activeClick} />)
+        else
+            return (<MdRotateRight className={classNames("StateSpinner", {"active": !props.initialized})} />)
     }
 
     return (
         <div className="Folder">
             {renderExpandButton(props.expanded)}
-            {renderStateButton(props.active)}       
-            <h2>{props.name}</h2>            
+            {renderStateButton(props.active, props.initialized)}       
+            <h2 className={classNames("FolderHeader", {"active": props.expanded})}>{props.name}</h2>            
             {folderItems}
         </div>
     )
