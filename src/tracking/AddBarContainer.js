@@ -14,12 +14,10 @@ export default class AddBarContainer extends React.Component {
     }
 
     handleChange (event) {        
-        console.log('handleChange')
         this.setState({value: event.target.value})
     }
 
     handleSubmit (event) {        
-        console.log('handleSubmit')
         this.setState({value: event.target.value})
         if (this.onSubmit !== undefined)
             this.onSubmit(this.state.value)

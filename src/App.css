@@ -89,6 +89,10 @@
   display: inline-block;
 } 
 
+.CloseButton { 
+  float: right;
+}
+
 .active {
   color: black;
 }

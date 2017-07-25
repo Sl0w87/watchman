@@ -11,6 +11,7 @@ export default class TrackingContainer extends React.Component {
         }
         
         this.addWorkListItem = this.addWorkListItem.bind(this)
+        this.handleCloseClick = this.handleCloseClick.bind(this)
     }    
 
     componentDidMount () {
@@ -22,23 +23,31 @@ export default class TrackingContainer extends React.Component {
     }
  
     addWorkListItem (location) {
-        console.log(`addWorkListItem ${location}`)
         var newList = this.state.workList || [];
         const dir = location.substring(0, location.lastIndexOf(path.sep))
         var folder = newList.find((item) => item === dir)
         if (folder === undefined)
         {
             newList.unshift(location)
-            localStorage.setItem("observedItems", JSON.stringify(newList))
-            
+            localStorage.setItem("observedItems", JSON.stringify(newList))            
             this.setState({"workList": newList})
         }
+    }
+
+    handleCloseClick (location) {
+        var newList = this.state.workList || [];
+        const index = newList.indexOf(location)
+        if (index >= 0) 
+            newList.splice(index, 1)
+        
+        localStorage.setItem("observedItems", JSON.stringify(newList))
+        this.setState({"worklist": newList})
     }
 
     render () {
         const folderItems = this.state.workList.map((item) => {
             return (
-                <FolderContainer value={item} />
+                <FolderContainer key={item.toString()} value={item} closeClick={this.handleCloseClick}/>
             )
         })
 

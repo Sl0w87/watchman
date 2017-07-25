@@ -19,15 +19,16 @@ export default class FolderContainer extends React.Component {
 
         this.watcher = undefined;
 
-        this.handleExpandClick = this.handleExpandClick.bind(this);
-        this.handleActiveClick = this.handleActiveClick.bind(this);
+        this.handleExpandClick = this.handleExpandClick.bind(this)
+        this.handleActiveClick = this.handleActiveClick.bind(this)
+        this.handleCloseClick = this.handleCloseClick.bind(this)
 
-        this.addEvent = this.addEvent.bind(this);
-        this.changeEvent = this.changeEvent.bind(this);
-        this.unlinkEvent = this.unlinkEvent.bind(this);
-        this.addDirEvent = this.addDirEvent.bind(this);
-        this.unlinkDirEvent = this.unlinkDirEvent.bind(this);
-        this.readyEvent = this.readyEvent.bind(this);
+        this.addEvent = this.addEvent.bind(this)
+        this.changeEvent = this.changeEvent.bind(this)
+        this.unlinkEvent = this.unlinkEvent.bind(this)
+        this.addDirEvent = this.addDirEvent.bind(this)
+        this.unlinkDirEvent = this.unlinkDirEvent.bind(this)
+        this.readyEvent = this.readyEvent.bind(this)
     }  
  
     addItem(ident, location) {
@@ -35,7 +36,7 @@ export default class FolderContainer extends React.Component {
             const filename = location.replace(/^.*[\\\/]/, '')
             var newList = this.state.items
             const time = new Date();
-            const message = `${time.getHours()}:${time.getMinutes()}:${time.getSeconds()} ${ident} ${filename}`;
+            const message = `${time.getHours()}:${time.getMinutes()}:${time.getSeconds()} ${ident} ${filename}`
             newList.unshift(message)
             ipcRenderer.send('trackedChange', {
                 title: 'watchman', 
@@ -59,7 +60,6 @@ export default class FolderContainer extends React.Component {
             .on('ready', this.readyEvent)
     }
 
-
     handleExpandClick (event) {
         this.setState({
             "expanded": !this.state.expanded
@@ -75,8 +75,12 @@ export default class FolderContainer extends React.Component {
             "active": !this.state.active,
             "initialized": false,
             "expanded": false
-        })
-      
+        })      
+    }
+
+    handleCloseClick (event) {
+        if (this.props.closeClick)
+            this.props.closeClick(this.state.name)
     }
 
     readyEvent() {
@@ -105,7 +109,14 @@ export default class FolderContainer extends React.Component {
 
     render () {
         return (
-            <Folder name={this.state.name} initialized={this.state.initialized} active={this.state.active} expanded={this.state.expanded} items={this.state.items} expandClick={this.handleExpandClick} activeClick={this.handleActiveClick} />                        
+            <Folder name={this.state.name} 
+                initialized={this.state.initialized} 
+                active={this.state.active} 
+                expanded={this.state.expanded} 
+                items={this.state.items} 
+                expandClick={this.handleExpandClick} 
+                activeClick={this.handleActiveClick} 
+                closeClick={this.handleCloseClick}/>
         )
     }
 }

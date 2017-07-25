@@ -1,5 +1,5 @@
 import React from 'react';
-import {MdExpandLess, MdExpandMore, MdPause, MdPlayArrow, MdRotateRight} from 'react-icons/lib/md';
+import {MdExpandLess, MdExpandMore, MdPause, MdPlayArrow, MdRotateRight, MdClose} from 'react-icons/lib/md';
 import classNames from 'classnames';
 
 export default function Folder (props) {
@@ -10,7 +10,7 @@ export default function Folder (props) {
                 {item}
             </p>
         )
-    }) 
+    })
 
     const renderExpandButton = (expanded) => {
         if (expanded)
@@ -30,6 +30,7 @@ export default function Folder (props) {
 
     return (
         <div className="Folder">
+            <MdClose className="CloseButton" onClick={props.closeClick}/>
             {renderExpandButton(props.expanded)}
             {renderStateButton(props.active, props.initialized)}       
             <h2 className={classNames("FolderHeader", {"active": props.expanded})}>{props.name}</h2>            
