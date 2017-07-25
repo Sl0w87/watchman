@@ -31,11 +31,11 @@ export default class FolderContainer extends React.Component {
     }  
  
     addItem(ident, location) {
-        const filename = location.replace(/^.*[\\\/]/, '')
-        var newList = this.state.items
-        const time = new Date();
-        const message = `${time.getHours()}:${time.getMinutes()}:${time.getSeconds()} ${ident} ${filename}`;
         if (ident && this.state.initialized) {
+            const filename = location.replace(/^.*[\\\/]/, '')
+            var newList = this.state.items
+            const time = new Date();
+            const message = `${time.getHours()}:${time.getMinutes()}:${time.getSeconds()} ${ident} ${filename}`;
             newList.unshift(message)
             ipcRenderer.send('trackedChange', {
                 title: 'watchman', 
