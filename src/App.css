@@ -2,15 +2,32 @@
   display: flex;
   min-height: 100vh;
   flex-direction: column;
-  color: grey;
+  color: #1C556F;
+  background-color: #84D0F2;
 }
 
 .App-main {
   flex: 1 0 auto;
 }
 
-#nav-mobile {
-  display: "none"
+.button-collapse {
+  display: none;
+}
+
+.nav-wrapper {
+  background-color: #1C556F;
+}
+
+.brand-logo {
+  color: white !important;
+}
+ 
+.page-footer {
+  background-color: #1C556F !important;
+}
+
+.footer-copyright {
+  background-color: #1C556F !important;
 }
 
 .AddBar {
@@ -19,6 +36,10 @@
 
 .AddBar > div {
   overflow: hidden;
+}
+
+.btn {
+  background-color: #3090BC !important;
 }
 
 .AddBar > button {
@@ -38,10 +59,16 @@
 
 .Folder {
   margin: 5px;
+  border-style: solid;
+  border-width: thin;
 }
 
 .Folder > h2 {
   font-size: 1rem;
+}
+
+.FolderItem {
+  margin-left: 50px;
 }
 
 .FolderHeader {

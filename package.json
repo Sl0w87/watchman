@@ -21,7 +21,7 @@
     "react-materialize": "^1.0.4"
   },
   "homepage": "./",
-  "main": "./build/electron.js",
+  "main": "./src/electron.js",
   "scripts": {
     "postinstall": "electron-builder install-app-deps",
     "start": "react-scripts start",

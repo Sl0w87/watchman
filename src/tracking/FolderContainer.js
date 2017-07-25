@@ -29,19 +29,21 @@ export default class FolderContainer extends React.Component {
         this.unlinkDirEvent = this.unlinkDirEvent.bind(this);
         this.readyEvent = this.readyEvent.bind(this);
     }  
-
+ 
     addItem(ident, location) {
         const filename = location.replace(/^.*[\\\/]/, '')
         var newList = this.state.items
+        const time = new Date();
+        const message = `${time.getHours()}:${time.getMinutes()}:${time.getSeconds()} ${ident} ${filename}`;
         if (ident && this.state.initialized) {
-            newList.unshift(ident + " " + filename)
+            newList.unshift(message)
             ipcRenderer.send('trackedChange', {
                 title: 'watchman', 
-                message: ident + ' ' + filename,
+                message: message,
                 icon: path.join(__dirname, 'logo.png'),
                 sound: false,
-                wait: false
-            })
+                wait: true
+            }) 
             this.setState({"items": newList})
         }
     }

@@ -10,7 +10,7 @@ export default function Folder (props) {
                 {item}
             </p>
         )
-    })
+    }) 
 
     const renderExpandButton = (expanded) => {
         if (expanded)
