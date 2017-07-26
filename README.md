@@ -1,4 +1,11 @@
-Mit dem watchman könnt Ihr ganz einfach Änderungen einer Datei oder eines Verzeichnisses überwachen.
+# watchman
 
-Entwurf
-![watchman-entwurf](https://user-images.githubusercontent.com/22843570/28134171-7075528a-6742-11e7-8cb4-6c3a0a53873e.png)
+powered by [![Electron Logo](https://electron.atom.io/images/electron-logo.svg)](https://electron.atom.io/)
+
+With watchman you can watch files or folder for changes
+
+Features:
+
+ * Windows, Linux and Mac compatible
+ * Watch different items at the same time
+ * Get system notification for changes
