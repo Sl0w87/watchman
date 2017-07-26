@@ -6,9 +6,17 @@ export default function Folder (props) {
     const {items, expanded} = props
     const folderItems = items.map((item) => {
         return (
-            <p className={classNames("FolderItem", {"active": props.expanded})}>
-                {item}
-            </p>
+            <div className={classNames("row", "FolderItem", {"active": props.expanded})}>
+                <div className="col s12 m4 l2">
+                    {item.date}
+                </div>
+                <div className="col s12 m4 l2">
+                    {item.ident}
+                </div>
+                <div className="col s12 m4 l8">
+                    {item.name}
+                </div>                
+            </div>
         )
     })
 

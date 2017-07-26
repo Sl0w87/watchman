@@ -37,7 +37,11 @@ export default class FolderContainer extends React.Component {
             var newList = this.state.items
             const time = new Date();
             const message = `${time.getHours()}:${time.getMinutes()}:${time.getSeconds()} ${ident} ${filename}`
-            newList.unshift(message)
+            newList.unshift({
+                name: filename, 
+                date: `${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}`, 
+                ident: ident
+            })
             ipcRenderer.send('trackedChange', {
                 title: 'watchman', 
                 message: message,
