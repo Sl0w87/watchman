@@ -41,7 +41,7 @@ function createWindow() {
             height: 800,
             icon: './logo.png',
             'webPreferences': {
-                'devTools': true,
+                'devTools': false,
                 'webSecurity': false
             }
         }
