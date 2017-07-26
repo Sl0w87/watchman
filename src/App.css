@@ -10,6 +10,10 @@
   flex: 1 0 auto;
 }
 
+input::placeholder {
+  color: #1C556F;
+}
+
 .button-collapse {
   display: none;
 }
@@ -91,8 +95,9 @@
 
 .CloseButton { 
   float: right;
+  font-size: 20px;
 }
-
+ 
 .active {
   color: black;
 }
